@@ -1,0 +1,49 @@
+version: '3'
+
+# 开发环境Docker Compose配置
+# 使用: docker-compose -f docker-compose.yml up
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_BACKEND_URL=http://localhost:3001
+    depends_on:
+      - backend
+    # 开发环境：自动重启容器当代码更改
+    restart: on-failure
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - PORT=3001
+      - MONGO_URI=mongodb://mongodb:27017/smartmediahub
+      - JWT_SECRET=your_jwt_secret
+    depends_on:
+      - mongodb
+    # 开发环境：自动重启容器当代码更改
+    restart: on-failure
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
