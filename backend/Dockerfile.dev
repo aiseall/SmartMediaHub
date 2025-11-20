@@ -5,11 +5,11 @@ WORKDIR /app
 # 复制package.json和package-lock.json
 COPY package*.json ./
 
-# 安装依赖
-RUN npm install
+# 安装所有依赖，包括开发依赖
+RUN npm install --include=dev
 
-# 全局安装nodemon
-RUN npm install -g nodemon
+# 全局安装ts-node和nodemon
+RUN npm install -g ts-node nodemon
 
 # 复制所有源码文件
 COPY . .
