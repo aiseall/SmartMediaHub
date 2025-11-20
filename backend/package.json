@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "start": "NODE_ENV=production node app.js",
-    "dev": "NODE_ENV=development nodemon app.ts"
+    "dev": "NODE_ENV=development nodemon --exec ts-node app.ts"
   },
   "config": {
     "port": "3001",
@@ -16,12 +16,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/multer": "^2.0.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.8.0"
+    "mongoose": "^8.8.0",
+    "multer": "^2.0.2"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
